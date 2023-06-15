@@ -1,4 +1,7 @@
-const cardContainer = document.querySelector('[data-js="card-container"]');
+import { createCharacterCard } from "./card.js";
+export const cardContainer = document.querySelector(
+  '[data-js="card-container"]'
+);
 const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
 );
@@ -13,6 +16,7 @@ const maxPage = 1;
 const page = 1;
 const searchQuery = "";
 
+
 const url = "https://rickandmortyapi.com/";
 async function fetchCharacters() {
   try {
@@ -23,3 +27,6 @@ async function fetchCharacters() {
     console.log("Error fetching data:", error);
   }
 }
+
+createCharacterCard();
+
