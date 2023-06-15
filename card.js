@@ -1,4 +1,5 @@
 import { cardContainer } from "./index.js";
+import { fetchCharacters } from "./index.js";
 
 export function createCharacterCard() {
   const card = document.createElement("li");
