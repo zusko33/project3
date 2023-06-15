@@ -38,12 +38,15 @@ nextButton.addEventListener("click", () => {
 });
 
 const url = "https://rickandmortyapi.com/";
-async function fetchCharacters(x, y) {
+async function fetchCharacters(pageNum, searchName) {
   cardContainer.innerHTML = "";
   try {
-    const response = await fetch(`${url}/api/character/?page=${x}&name=${y}`);
+    const response = await fetch(
+      `${url}/api/character/?page=${pageNum}&name=${searchName}`
+    );
     const data = await response.json();
     maxPage = data.info.pages;
+    pagination.textContent = `${page} / ${maxPage}`;
     const characters = data.results;
     characters.forEach((character) => {
       const card = createCharacterCard(character);
