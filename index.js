@@ -12,12 +12,12 @@ const pagination = document.querySelector('[data-js="pagination"]');
 // States
 let maxPage = 1;
 let page = 1;
-const searchQuery = "";
+let searchQuery = "";
 
 searchBar.addEventListener("submit", (e) => {
   e.preventDefault();
   const formElement = e.target.elements;
-  const searchQuery = formElement[0].value;
+  searchQuery = formElement[0].value;
   fetchCharacters(page, searchQuery);
 });
 
