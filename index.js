@@ -4,9 +4,9 @@ const searchBarContainer = document.querySelector(
   '[data-js="search-bar-container"]'
 );
 const searchBar = document.querySelector('[data-js="search-bar"]');
-export const navigation = document.querySelector('[data-js="navigation"]');
-export const prevButton = document.querySelector('[data-js="button-prev"]');
-export const nextButton = document.querySelector('[data-js="button-next"]');
+const navigation = document.querySelector('[data-js="navigation"]');
+const prevButton = document.querySelector('[data-js="button-prev"]');
+const nextButton = document.querySelector('[data-js="button-next"]');
 const pagination = document.querySelector('[data-js="pagination"]');
 
 // States
@@ -14,12 +14,19 @@ let maxPage = 1;
 let page = 1;
 const searchQuery = "";
 
+searchBar.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const formElement = e.target.elements;
+  const searchQuery = formElement[0].value;
+  fetchCharacters(page, searchQuery);
+});
+
 prevButton.addEventListener("click", () => {
   if (page > 1) {
     page--;
   }
   pagination.textContent = `${page} / ${maxPage}`;
-  fetchCharacters(page);
+  fetchCharacters(page, searchQuery);
 });
 
 nextButton.addEventListener("click", () => {
@@ -27,14 +34,14 @@ nextButton.addEventListener("click", () => {
     page++;
   }
   pagination.textContent = `${page} / ${maxPage}`;
-  fetchCharacters(page);
+  fetchCharacters(page, searchQuery);
 });
 
 const url = "https://rickandmortyapi.com/";
-async function fetchCharacters(x) {
+async function fetchCharacters(x, y) {
   cardContainer.innerHTML = "";
   try {
-    const response = await fetch(`${url}/api/character/?page=${x}`);
+    const response = await fetch(`${url}/api/character/?page=${x}&name=${y}`);
     const data = await response.json();
     maxPage = data.info.pages;
     const characters = data.results;
@@ -47,4 +54,4 @@ async function fetchCharacters(x) {
     console.log("Error fetching data:", error);
   }
 }
-fetchCharacters(page);
+fetchCharacters(page, searchQuery);
